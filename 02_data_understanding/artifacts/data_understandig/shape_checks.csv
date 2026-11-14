@@ -1,4 +1,0 @@
-file,rows,columns,engines,expected_rows,expected_columns,expected_engines,matches_release
-train_FD001.txt,20631,26,100.0,20631,26,100.0,True
-test_FD001.txt,13096,26,100.0,13096,26,100.0,True
-RUL_FD001.txt,100,1,,100,1,,True
