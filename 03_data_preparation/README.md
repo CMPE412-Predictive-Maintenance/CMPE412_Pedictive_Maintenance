@@ -46,14 +46,27 @@ Prepare the NASA C-MAPSS FD001 training data for Remaining Useful Life
 
 ## Results
 
-This section will be completed after running the preparation notebook.
+The FD001 training file contained 20,631 records from 100 engines.
+The notebook split the data by engine ID using an 80/20 split and
+a random seed of 42.
 
-It will report:
+| Split | Engines | Records |
+| --- | ---: | ---: |
+| Training | 80 | 16,527 |
+| Validation | 20 | 4,104 |
 
-- The number of engines and rows in each group.
-- Confirmation that training and validation share no engine IDs.
-- Results of the RUL and data quality checks.
-- Retained and removed columns, with reasons.
-- Any fitted preprocessing transformations or features based on past
-  sensor readings.
-- The locations and structure of the exported files.
+The splits share no engine IDs. RUL is nonnegative for every record
+and equals zero at the final recorded cycle of each engine.
+
+Seven columns were constant in the training split and were removed:
+`setting_3`, `sensor_1`, `sensor_5`, `sensor_10`, `sensor_16`,
+`sensor_18`, and `sensor_19`. The exported tables retain 17 model
+features. `unit` and `cycle` are tracking columns, and `RUL` is the target.
+
+This baseline uses current sensor readings and operating settings.
+No scaling or rolling features were applied. The official test files
+remain reserved for final evaluation.
+
+Running the notebook generates `data_preparation_results.zip`, which
+contains the training and validation tables, engine assignments,
+feature specification, quality checks, and modeling instructions.
