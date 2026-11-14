@@ -1,0 +1,27 @@
+column,type,role,meaning
+unit,int64,identifier,Engine ID within this split; not a model feature
+cycle,int64,time index,Operational cycle index; not hours
+setting_1,float64,operating setting,Operating condition setting; original dataset scale
+setting_2,float64,operating setting,Operating condition setting; original dataset scale
+setting_3,float64,operating setting,Operating condition setting; original dataset scale
+sensor_1,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_2,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_3,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_4,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_5,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_6,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_7,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_8,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_9,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_10,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_11,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_12,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_13,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_14,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_15,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_16,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_17,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_18,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_19,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_20,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
+sensor_21,float64,sensor measurement,Sensor channel in the original 21-sensor schema; original dataset scale
