@@ -1,3 +1,4 @@
+
 # Predictive Maintenance for Aircraft Engines
 
 ## Project Overview
@@ -21,9 +22,9 @@ The project is organized into the following CRISP-DM stages:
 
 | Stage | Description |
 |---|---|
-| [01 - Business Understanding](01_Business_Understanding/README.md) | Defines the maintenance problem, project objectives, and success criteria. |
-| [02 - Data Understanding](02_Data_Understanding/) | Explores the dataset, checks data quality, and visualizes engine sensor behavior. |
-| [03 - Data Preparation](03_Data_Preparation/) | Prepares the data, calculates RUL, and creates model-ready datasets. |
+| [01 - Business Understanding](01_business_understanding/README.md) | Defines the maintenance problem, project objectives, and success criteria. |
+| [02 - Data Understanding](02_data_understanding/) | Explores the dataset, checks data quality, and visualizes engine sensor behavior. |
+| [03 - Data Preparation](03_data_preparation/) | Prepares the data, calculates RUL, and creates model-ready datasets. |
 | 04 - Modeling | Trains machine learning models for RUL prediction and anomaly detection. |
 | 05 - Evaluation | Evaluates model performance and compares prediction results. |
 | 06 - Deployment | Demonstrates how the predictions could support maintenance decisions. |
