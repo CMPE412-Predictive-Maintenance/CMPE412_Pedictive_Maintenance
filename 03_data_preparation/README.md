@@ -68,5 +68,6 @@ No scaling or rolling features were applied. The official test files
 remain reserved for final evaluation.
 
 Running the notebook generates `data_preparation_results.zip`, which
-contains the training and validation tables, engine assignments,
-feature specification, quality checks, and modeling instructions.
+contains the training and validation tables, engine assignments, feature
+specification, feature audit, a list of strongly correlated features,
+a split summary, and instructions for the modeling team.
