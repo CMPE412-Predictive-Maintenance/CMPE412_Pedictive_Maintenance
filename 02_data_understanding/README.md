@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/35086379/README.md)
 
 # 02 — Data Understanding
 
