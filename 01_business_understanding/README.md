@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/35085863/README.md)
+[README.md](https://github.com/user-attachments/files/35086370/README.md)
 ## 1. Business Understanding
 
 ### 1.1 Business Problem and Scenario
@@ -44,6 +44,17 @@ We will examine the direction of errors because it matters for maintenance plann
 
 - **Overestimating RUL:** Can delay an inspection, especially when an engine has few cycles remaining.
 - **Underestimating RUL:** Can move an inspection forward unnecessarily and use capacity needed for other engines.
+
+#### Isolation Forest
+
+Fit Isolation Forest on the training engines. On the held-out validation engines,
+report the fraction of flagged cycles for RUL ≤ 30 and RUL > 30. The qualitative
+success criterion is a higher flag rate in the final 30 remaining cycles. This
+measures whether flags concentrate near failure in the simulated trajectories.
+It is an exploratory degradation-alignment measure, not anomaly precision or
+recall: FD001 does not supply labelled anomalous cycles for this analysis.
+Report both group sizes and flag rates, keep RUL out of detector inputs, and
+choose detector settings without consulting the official test set.
 
 ### 1.5 Expected Business Value
 
