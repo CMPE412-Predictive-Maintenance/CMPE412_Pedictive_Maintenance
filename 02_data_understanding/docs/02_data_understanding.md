@@ -1,4 +1,4 @@
-[02_data_understanding.md](https://github.com/user-attachments/files/35085834/02_data_understanding.md)
+
 # 02 — Data Understanding
 
 ## Scope and provenance
