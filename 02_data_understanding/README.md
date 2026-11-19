@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/35085845/README.md)
+[README.md](https://github.com/user-attachments/files/35086379/README.md)
 
 # 02 — Data Understanding
 
@@ -40,7 +40,7 @@ The training data contain **100 engines, 20,631 cycle records and 21 sensors**. 
 
 Observed training record lengths range from **128 to 362 cycles**, with a median of **199** and a mean of approximately **206.3**. These are recorded run-to-failure lengths, not physical ages since manufacture.
 
-Sensors **1, 5, 10, 16, 18 and 19** are exactly constant in the explored training data. Sensors **6, 8 and 13** are low-variability candidates under the notebook's stated exploratory thresholds. No columns were removed.
+Sensors **1, 5, 10, 16, 18 and 19** are exactly constant in the explored training data. Sensors **6, 8 and 13** are low-variability candidates under the notebook's stated exploratory thresholds. No columns were removed. Operating setting `setting_3` was also constant and was removed in Data Preparation after confirming it was constant in the training split.
 
 For the three selected engines (**39, 68 and 69**), **sensor_4 and sensor_11 generally rise toward the end of the recorded trajectories, while sensor_7 generally falls**. This observation is limited to these three examples and does not establish a universal fleet-wide trend.
 
