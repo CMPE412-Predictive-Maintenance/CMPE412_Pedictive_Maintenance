@@ -1,0 +1,25 @@
+column,unique_values,relative_range,dominant_share,constant,low_variability_candidate,decision,reason
+setting_1,155,2.0,0.02057239668421371,False,False,retain,Available at prediction time and varies in training
+setting_2,13,2.0,0.10219640588128517,False,False,retain,Available at prediction time and varies in training
+setting_3,1,0.0,1.0,True,False,remove,Constant across training rows
+sensor_1,1,0.0,1.0,True,False,remove,Constant across training rows
+sensor_2,309,0.00515104029292653,0.009197071458824953,False,False,retain,Available at prediction time and varies in training
+sensor_3,2902,0.028368925914243906,0.0015126762267804199,False,False,retain,Available at prediction time and varies in training
+sensor_4,3870,0.03905680927373756,0.0009681127851394688,False,False,retain,Available at prediction time and varies in training
+sensor_5,1,0.0,1.0,True,False,remove,Constant across training rows
+sensor_6,2,0.0004627487274409075,0.9806982513462819,False,True,retain,Available at prediction time and varies in training
+sensor_7,503,0.011167859583498045,0.005808676710836813,False,False,retain,Available at prediction time and varies in training
+sensor_8,51,0.0002763171115650662,0.05826828825558177,False,True,retain,Available at prediction time and varies in training
+sensor_9,5936,0.024107072352586818,0.0008470986869970351,False,False,retain,Available at prediction time and varies in training
+sensor_10,1,0.0,1.0,True,False,remove,Constant across training rows
+sensor_11,157,0.034617762208942915,0.016578931445513402,False,False,retain,Available at prediction time and varies in training
+sensor_12,421,0.008960984370820324,0.006595268348762631,False,False,retain,Available at prediction time and varies in training
+sensor_13,50,0.0002637594513803868,0.05609003448901797,False,True,retain,Available at prediction time and varies in training
+sensor_14,5659,0.02336466627761725,0.0009076057360682519,False,False,retain,Available at prediction time and varies in training
+sensor_15,1868,0.02978936576727724,0.0019362255702789375,False,False,retain,Available at prediction time and varies in training
+sensor_16,1,0.0,1.0,True,False,remove,Constant across training rows
+sensor_17,13,0.03,0.2648393537847159,False,False,retain,Available at prediction time and varies in training
+sensor_18,1,0.0,1.0,True,False,remove,Constant across training rows
+sensor_19,1,0.0,1.0,True,False,remove,Constant across training rows
+sensor_20,120,0.03271620593456757,0.0241423125794155,False,False,retain,Available at prediction time and varies in training
+sensor_21,4516,0.030662534295295182,0.0012706480304955528,False,False,retain,Available at prediction time and varies in training
