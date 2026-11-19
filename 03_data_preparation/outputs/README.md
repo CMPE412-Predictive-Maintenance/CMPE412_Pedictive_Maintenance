@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/35086496/README.md)
+
 # FD001 Data Preparation Handoff
 
 Extract the ZIP. Run the following from the directory containing the exported files.
