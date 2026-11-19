@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/35085912/README.md)
+[README.md](https://github.com/user-attachments/files/35086414/README.md)
 # 03 — Data Preparation
 
 ## Objective
@@ -38,6 +38,7 @@ Prepare the NASA C-MAPSS FD001 training data for Remaining Useful Life
 - A reproducible [Data Preparation notebook](notebooks/03_data_preparation.ipynb).
 - Training and validation tables with clearly identified model features,
   RUL targets, and tracking columns.
+- A `test_last_cycle.csv` table with one row per official test engine and its official RUL label.
 - The engine IDs assigned to each group.
 - The model feature list and reasons for any removed columns.
 - Documentation of the split ratio, random seed, target definition,
@@ -68,7 +69,29 @@ This baseline uses current sensor readings and operating settings.
 No scaling or rolling features were applied. The official test files
 remain reserved for final evaluation.
 
+In Colab, open the notebook and select **Runtime → Run all**. It uses the
+same automatic download and nested ZIP handling as Data Understanding, with
+manual upload of an archive or all three FD001 TXT files as a fallback.
+
 Running the notebook generates `data_preparation_results.zip`, which
-contains the training and validation tables, engine assignments, feature
+contains the training, validation and final test tables, engine assignments, feature
 specification, feature audit, a list of strongly correlated features,
 a split summary, and instructions for the modeling team.
+
+## Modeling Follow-up
+
+The exported RUL target remains uncapped. Compare the uncapped training target
+with a training target capped at 125 cycles, using the same engine split and
+original uncapped validation labels for both MAE/RMSE comparisons. Select
+settings on validation data and use official test labels only for final scoring.
+
+Keep the 17-feature baseline. Evaluate dropping sensor_6 and the two retained
+settings, or adding current cycle, as documented validation experiments; do not
+select features using official test results.
+
+## Files
+
+- [Preparation notebook](notebooks/03_data_preparation.ipynb)
+- [Modeling instructions](outputs/README.md)
+- [Feature specification](outputs/feature_spec.json)
+- [Final test inputs and labels](outputs/test_last_cycle.csv)
