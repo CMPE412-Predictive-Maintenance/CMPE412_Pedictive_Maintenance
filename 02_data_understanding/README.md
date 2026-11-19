@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/35085845/README.md)
 
 # 02 — Data Understanding
 
@@ -7,7 +8,7 @@ This CRISP-DM stage examines the structure, quality and sensor behavior of NASA 
 
 ## Deliverables
 
-- [Data Understanding notebook](notebooks/01_data_understanding.ipynb)
+- [Data Understanding notebook](notebooks/02_data_understanding.ipynb)
 - [Data Understanding report](docs/02_data_understanding.md)
 
 The notebook contains the analysis code, explanations and saved outputs. The report summarizes findings and provides a handoff to Data Preparation. Figures and supporting tables are stored in this stage's `artifacts/` directory.
