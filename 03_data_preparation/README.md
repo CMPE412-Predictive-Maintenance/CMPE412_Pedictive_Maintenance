@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/35085912/README.md)
 # 03 — Data Preparation
 
 ## Objective
@@ -34,7 +35,7 @@ Prepare the NASA C-MAPSS FD001 training data for Remaining Useful Life
 
 ## Deliverables
 
-- A reproducible `02_data_preparation.ipynb` notebook.
+- A reproducible [Data Preparation notebook](notebooks/03_data_preparation.ipynb).
 - Training and validation tables with clearly identified model features,
   RUL targets, and tracking columns.
 - The engine IDs assigned to each group.
