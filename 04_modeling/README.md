@@ -15,12 +15,17 @@ Train Remaining Useful Life (RUL) models on the prepared NASA C-MAPSS FD001 tabl
 | `models/model_card.json` | Parameters, feature list, dropped columns, scores, selection rule, library versions, notes for Evaluation |
 | `outputs/*.csv` | Screening, tuning, paired CV, final comparison, error by RUL band, permutation importance, anomaly results, validation predictions |
 | `outputs/figures/` | All figures used in this README |
+| `requirements.txt` | Library versions used for the results and the saved models |
 
 ## Running the notebook
 
-Open `notebooks/04_modeling.ipynb` in Google Colab and select **Runtime → Run all**. The first cell clones the public repository and reads `03_data_preparation/outputs/`. The last cell downloads `modeling_results.zip` with `models/` and `outputs/`. A full run takes about 25–30 minutes, mostly for tuning. In a local clone, open the notebook from `04_modeling/notebooks/` and run all cells.
+Open `notebooks/04_modeling.ipynb` in Google Colab and select **Runtime → Run all**. The last cell downloads `modeling_results.zip` with `models/` and `outputs/`. A full run takes about 25–30 minutes, mostly for tuning.
 
-All random choices use `SEED = 42`. The official test table (`test_last_cycle.csv`) is **not loaded** in this stage.
+- **Data source.** The repository is public, so no token is needed. The first cell runs `git clone --depth 1` on the default branch (`main`) and reads only `03_data_preparation/outputs/` (`train.csv`, `validation.csv`, `feature_spec.json`), which are already on `main`. The notebook therefore reproduces the same results from any branch, before or after this PR is merged.
+- **Local run.** In a clone of the repository, install the pinned versions with `pip install -r 04_modeling/requirements.txt`, open the notebook from `04_modeling/notebooks/` and run all cells. The notebook then uses the local clone instead of downloading a new one.
+- **Versions.** The results and saved models were produced with Python 3.13, numpy 2.4.6, pandas 2.2.3, scikit-learn 1.6.1 and XGBoost 3.4.1 (also recorded in `models/model_card.json`). Use the same scikit-learn and XGBoost versions to load the `.joblib` files.
+
+All random choices use `SEED = 42`; a second complete run reproduced the same result tables. The official test table (`test_last_cycle.csv`) is **not loaded** in this stage.
 
 ## Evaluation design
 
@@ -39,6 +44,18 @@ All scores are computed on the 20 validation engines against the **original, unc
 **Why "late > 10".** Tree models average leaf values, so very close to RUL = 0 they predict 1–2 cycles too high almost by construction. The plain late share counts these as late. Late predictions of more than 10 cycles are the ones that could delay a decision.
 
 Model selection follows Business Understanding: **lowest validation MAE**, measured inside the decision horizon, applied in code. Hyperparameters are tuned only on the 80 training engines with engine-grouped cross-validation (`GroupKFold(5)` by `unit`), so the validation engines are never used for fitting or tuning.
+
+### Relation to the Business Understanding success criteria
+
+| Business Understanding | This stage |
+|---|---|
+| MAE and RMSE in operating cycles | Reported for all rows and inside the decision horizon, always against the original RUL |
+| Linear Regression baseline; same engine-level split for all models | Baseline: Linear Regression on the 17 prepared features, uncapped target. Every model uses the same 80/20 engine split |
+| Select the best candidate by validation MAE | Lowest validation MAE on rows with true RUL ≤ 125 |
+| Report RMSE for large errors; examine the direction of errors | RMSE in every table; late share and late > 10 share close to failure; signed mean error by RUL band |
+| Official test set only for final evaluation | Not loaded here; used once in 05 — Evaluation |
+
+The RUL ≤ 125 window narrows *which rows* the validation MAE is averaged over. It does not change the metric or the target, and it was fixed before any model was trained. It also does not decide the outcome: among the final candidates (baseline and the three tuned models), **XGBoost has the lowest validation MAE both inside the horizon (10.27) and over all rows (29.89)**, so selecting on all-rows MAE gives the same model. The Business Understanding goal of a lower **test** MAE than the baseline is checked in 05 — Evaluation.
 
 ## Experiments
 
@@ -191,7 +208,7 @@ A separate output that is **not a model input**:
 
 The Business Understanding criterion (higher flag rate in the final 30 cycles) is met. By true RUL band the flag rate is 99.4% (0–30), 81.3% (31–60), 31.7% (61–90), 8.7% (91–125), 0.7% (126–200) and 1.7% (201+). Most flags above 30 cycles fall where degradation has already started. In the healthy range the rate matches the designed ~1%.
 
-**Sustained warning** (5 consecutive flagged cycles): all 20 validation engines receive one, at a median of **56 cycles before failure** (range 22–126). This falls in the 31–90 range where the RUL model tends to be late, so the two signals complement each other. A planner rule such as "inspect when predicted RUL ≤ X **or** a sustained warning is active" could be explored in Deployment.
+**Sustained warning** (5 consecutive flagged cycles): all 20 validation engines receive one, at a median of **56.5 cycles before failure** (range 22–126). This falls in the 31–90 range where the RUL model tends to be late, so the two signals complement each other. A planner rule such as "inspect when predicted RUL ≤ X **or** a sustained warning is active" could be explored in Deployment.
 
 ![Anomaly score vs RUL](outputs/figures/anomaly_score_vs_rul.png)
 
@@ -200,7 +217,26 @@ FD001 contains one fault mode and no labelled anomalies, so this is an explorato
 ## Handoff to 05 — Evaluation
 
 - Use `models/selected_model.joblib` and `models/baseline_model.joblib` exactly as saved. Both were fitted on the 80 training engines, so test results are directly comparable with the validation results above.
-- The selected model and the anomaly detector need **history features**. Load each test engine's full trajectory (`test_FD001.txt`), compute the features with the same recipe (stored in the bundle), then predict at the last observed cycle and compare with the official RUL labels. `test_last_cycle.csv` contains only the last row per engine, which is enough for the baseline but not for history features.
+- The selected model and the anomaly detector need **history features**. Load each test engine's full trajectory (`test_FD001.txt`), compute the features with `add_history_features` from the Modeling notebook (the recipe is also stored in each bundle), then predict at the last observed cycle and compare with the official RUL labels. `test_last_cycle.csv` contains only the last row per engine, which is enough for the baseline but not for history features.
+- **Getting `test_FD001.txt`.** The raw NASA files are not stored in the repository. `03_data_preparation/notebooks/03_data_preparation.ipynb` already downloads the official archive (nested ZIP) and reads all three FD001 files, so Evaluation can reuse its loading cell. A minimal equivalent:
+
+  ```python
+  import hashlib, io, urllib.request, zipfile
+  import pandas as pd
+
+  URL = "https://phm-datasets.s3.amazonaws.com/NASA/6.+Turbofan+Engine+Degradation+Simulation+Data+Set.zip"
+  outer = zipfile.ZipFile(io.BytesIO(urllib.request.urlopen(URL).read()))
+  inner = zipfile.ZipFile(io.BytesIO(outer.read(
+      next(n for n in outer.namelist() if n.endswith("CMAPSSData.zip")))))
+  raw = inner.read("test_FD001.txt")
+  assert hashlib.sha256(raw).hexdigest() == \
+      "3cda7109ce17bafb5443f2ac926cfcf88154b941b8c4cf95eb55d1ddd6f52851"   # hash from 02 Data Understanding
+
+  columns = ["unit", "cycle", *[f"setting_{i}" for i in range(1, 4)], *[f"sensor_{i}" for i in range(1, 22)]]
+  test = pd.read_csv(io.BytesIO(raw), sep=r"\s+", header=None, names=columns)   # 13,096 rows, 100 engines
+  ```
+
+  If the download fails, get the archive from the [official NASA dataset page](https://data.nasa.gov/dataset/cmapss-jet-engine-simulated-data) and read `test_FD001.txt` from it; the hash check confirms it is the same file.
 - Load the bundles with the scikit-learn and XGBoost versions listed in `model_card.json` (scikit-learn 1.6.1, XGBoost 3.4.1).
 - Points to check on the test set: errors in the 31–90 cycle range, late predictions close to failure, and early alarms on long-lived engines.
 
