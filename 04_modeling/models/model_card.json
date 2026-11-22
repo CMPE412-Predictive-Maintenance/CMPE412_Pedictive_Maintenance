@@ -1,0 +1,124 @@
+{
+  "created_utc": "2026-11-22T15:41:20+00:00",
+  "selected_model": "XGBoost (tuned)",
+  "hyperparameters": {
+    "subsample": 0.7,
+    "n_estimators": 300,
+    "min_child_weight": 10,
+    "max_depth": 6,
+    "learning_rate": 0.03,
+    "colsample_bytree": 0.6
+  },
+  "feature_set": "history reduced + cycle 43",
+  "feature_columns": [
+    "sensor_2",
+    "sensor_3",
+    "sensor_4",
+    "sensor_7",
+    "sensor_8",
+    "sensor_9",
+    "sensor_11",
+    "sensor_12",
+    "sensor_13",
+    "sensor_14",
+    "sensor_15",
+    "sensor_17",
+    "sensor_20",
+    "sensor_21",
+    "mean10_sensor_2",
+    "mean10_sensor_3",
+    "mean10_sensor_4",
+    "mean10_sensor_7",
+    "mean10_sensor_8",
+    "mean10_sensor_9",
+    "mean10_sensor_11",
+    "mean10_sensor_12",
+    "mean10_sensor_13",
+    "mean10_sensor_14",
+    "mean10_sensor_15",
+    "mean10_sensor_17",
+    "mean10_sensor_20",
+    "mean10_sensor_21",
+    "slope20_sensor_2",
+    "slope20_sensor_3",
+    "slope20_sensor_4",
+    "slope20_sensor_7",
+    "slope20_sensor_8",
+    "slope20_sensor_9",
+    "slope20_sensor_11",
+    "slope20_sensor_12",
+    "slope20_sensor_13",
+    "slope20_sensor_14",
+    "slope20_sensor_15",
+    "slope20_sensor_17",
+    "slope20_sensor_20",
+    "slope20_sensor_21",
+    "cycle"
+  ],
+  "dropped_columns": {
+    "constant, removed in Data Preparation": [
+      "setting_3",
+      "sensor_1",
+      "sensor_5",
+      "sensor_10",
+      "sensor_16",
+      "sensor_18",
+      "sensor_19"
+    ],
+    "dropped in Modeling (no validation benefit)": [
+      "sensor_6",
+      "setting_1",
+      "setting_2"
+    ]
+  },
+  "target_policy": {
+    "training": "RUL clipped at 125",
+    "evaluation": "original RUL"
+  },
+  "selection_rule": "lowest validation MAE on rows with true RUL <= 125",
+  "cross_validation": {
+    "scheme": "GroupKFold(5) by unit on the 80 training engines",
+    "MAE_h_mean": 11.26134170175249,
+    "MAE_h_std": 0.6879323229362682
+  },
+  "validation": {
+    "selected": {
+      "MAE_all": 29.89067528096752,
+      "RMSE_all": 46.709418217588805,
+      "MAE_h": 10.26862064728602,
+      "RMSE_h": 13.960856212210121,
+      "MAE_30": 3.588613163884128,
+      "late_30": 0.7112903225806452,
+      "late10_30": 0.043548387096774194
+    },
+    "baseline": {
+      "MAE_all": 31.315576589718237,
+      "RMSE_all": 42.57860184607024,
+      "MAE_h": 24.337740650711567,
+      "RMSE_h": 31.241424018541604,
+      "MAE_30": 13.618228613359843,
+      "late_30": 0.5435483870967742,
+      "late10_30": 0.3790322580645161
+    }
+  },
+  "anomaly_detector": {
+    "threshold": 0.5578926205103545,
+    "flag_rate_RUL_le_30": 0.9935483870967742,
+    "flag_rate_RUL_gt_30": 0.21641791044776118,
+    "engines_with_sustained_warning": 20,
+    "median_RUL_at_warning": 56.5
+  },
+  "seed": 42,
+  "versions": {
+    "python": "3.13.18",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.4.1"
+  },
+  "notes_for_evaluation": [
+    "History features need each test engine's full trajectory (test_FD001.txt), not only test_last_cycle.csv; compute them, then predict at the last observed cycle.",
+    "Load bundles with the same scikit-learn / xgboost versions.",
+    "The model uses the current cycle index; it assumes engine lifetimes similar to this fleet."
+  ]
+}
