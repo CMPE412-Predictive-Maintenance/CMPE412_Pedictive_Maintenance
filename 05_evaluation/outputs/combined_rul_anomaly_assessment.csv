@@ -1,0 +1,4 @@
+unit,true_rul,xgb_predicted_rul,prediction_error,last_observed_cycle,final_sustained_warning
+18,28,38.928257,10.92825698852539,133,False
+37,21,48.233105,27.233104705810547,121,True
+41,18,35.311996,17.311996459960938,123,True

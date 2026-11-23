@@ -1,5 +1,5 @@
 RUL Range,Model,Engines,MAE,RMSE,Late Predictions (%)
-RUL <= 30,Linear Regression,25,21.255,28.195,80.0
+RUL <= 30,Linear Regression,25,20.705,27.92,80.0
 RUL <= 30,XGBoost,25,4.598,7.533,72.0
 31-90,Linear Regression,29,34.272,39.242,96.55
 31-90,XGBoost,29,11.598,15.806,62.07

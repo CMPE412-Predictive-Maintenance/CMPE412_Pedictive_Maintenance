@@ -1,0 +1,4 @@
+rul_group,observations,flagged_observations,flag_rate_percent
+RUL <= 30,332,325,97.89156626506023
+RUL > 30,12764,974,7.630836728298339
+RUL > 125,7952,86,1.0814889336016096

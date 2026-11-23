@@ -41,10 +41,10 @@ The selected XGBoost model achieved substantially better performance than the Li
 
 | Model | Test MAE (cycles) | Test RMSE (cycles) |
 |---|---:|---:|
-| Linear Regression | 25.603 | 31.969 |
+| Linear Regression | 25.465 | 31.909 |
 | XGBoost (Selected) | 10.974 | 15.258 |
 
-The selected XGBoost model reduced MAE by **57.14%** relative to the Linear Regression baseline.
+The selected XGBoost model reduced MAE by **56.91%** relative to the Linear Regression baseline.
 
 This meets the original Business Understanding objective of achieving a lower official test MAE than the baseline.
 
@@ -62,7 +62,7 @@ Prediction performance was examined across different actual RUL ranges to unders
 
 | Actual RUL Range | Engines | Baseline MAE | XGBoost MAE |
 |---|---:|---:|---:|
-| RUL ≤ 30 | 25 | 21.255 | 4.598 |
+| RUL ≤ 30 | 25 | 20.705 | 4.598 |
 | RUL 31–90 | 29 | 34.272 | 11.598 |
 | RUL 91–125 | 35 | 23.391 | 11.471 |
 | RUL > 125 | 11 | 19.664 | 22.234 |
@@ -70,6 +70,8 @@ Prediction performance was examined across different actual RUL ranges to unders
 XGBoost achieved considerably lower MAE in the critical RUL range.
 
 However, its MAE was higher than the baseline for engines with RUL greater than 125 cycles.
+
+The selected XGBoost model uses a 125-cycle RUL target cap established during Modeling. All 11 test engines with true RUL greater than 125 cycles were underestimated by XGBoost. This helps explain the higher MAE in this range, although individual predictions remain subject to error.
 
 This indicates that model performance varies across RUL ranges and that overall MAE alone does not describe every operational risk.
 
@@ -88,6 +90,7 @@ The selected XGBoost model achieved:
 - RUL overestimations: **18 of 25 engines (72%)**.
 - Average overestimation among these 18 engines: **5.338 cycles**.
 - Maximum overestimation: **27.233 cycles**.
+- Severe late predictions (>10 cycles): **3 of 25 engines (12%)**.
 
 An overestimation means that the model predicts more remaining cycles than the engine actually has.
 
@@ -109,6 +112,20 @@ Although XGBoost achieved low average error in the critical range, this example 
 
 These results support using RUL predictions as decision-support information rather than automatic maintenance instructions.
 
+### 5.2 Severe Late Prediction Analysis
+
+To remain consistent with the Modeling-stage `late10_30` metric, severe late predictions are defined as RUL overestimations greater than 10 cycles among engines with true RUL <= 30.
+
+| Engine | Actual RUL | Predicted RUL | Overestimation |
+|---|---:|---:|---:|
+| 18 | 28 | 38.928 | +10.928 |
+| 37 | 21 | 48.233 | +27.233 |
+| 41 | 18 | 35.312 | +17.312 |
+
+Although 18 of the 25 critical engines (72%) had some degree of RUL overestimation, only 3 engines (12%) had overestimations greater than 10 cycles.
+
+This distinction separates smaller late predictions from more substantial errors without dismissing the potential importance of either.
+
 ## 6. Engine Inspection Prioritization
 
 To evaluate practical maintenance planning, the 100 official test engines were ranked by their predicted RUL.
@@ -124,6 +141,8 @@ The selected model correctly identified **9 of the 10** highest-priority engines
 This result supports the project's objective of helping maintenance planners prioritize inspections when inspection capacity is limited.
 
 However, the ranking is not perfect, and a high-priority engine may be missed.
+
+The only difference between the predicted and actual top-10 engine sets involved Engines 20 and 56. Engine 20 had an actual RUL of 16 cycles, while Engine 56 had an actual RUL of 15 cycles. The difference in actual remaining useful life was only one cycle, although Engine 56 was ranked 12th by predicted RUL.
 
 The ranking is available in:
 
@@ -191,17 +210,52 @@ Large standardized changes may also reflect low variability in the initial obser
 
 Anomaly flags should therefore support further investigation rather than independently confirm a physical fault.
 
+### 7.4 Combined RUL and Anomaly Warning Assessment
+
+The three engines with severe late RUL predictions were examined for active sustained anomaly warnings at their last observed cycles.
+
+| Engine | Severe RUL Overestimation | Active Sustained Warning |
+|---|---:|---|
+| 18 | +10.928 | No |
+| 37 | +27.233 | Yes |
+| 41 | +17.312 | Yes |
+
+Two of the three engines with severe late predictions had active sustained anomaly warnings.
+
+This suggests that Isolation Forest can provide complementary information when RUL predictions are overly optimistic.
+
+However, Engine 18 was not covered by the additional warning signal. The combined findings do not constitute a validated operational maintenance policy.
+
+### 7.5 Official Test Anomaly Flag Rates
+
+The true RUL at each observed test cycle was reconstructed using the official final-cycle RUL labels.
+
+These labels were used only for retrospective evaluation and were not included in the anomaly detector inputs.
+
+| True RUL Group | Observations | Flagged | Flag Rate |
+|---|---:|---:|---:|
+| RUL <= 30 | 332 | 325 | 97.89% |
+| RUL > 30 | 12,764 | 974 | 7.63% |
+| RUL > 125 | 7,952 | 86 | 1.08% |
+
+The anomaly flag rate was substantially higher during the final 30 remaining cycles.
+
+This result supports the original qualitative degradation-alignment criterion on the official test set, consistent with the earlier Modeling-stage validation findings.
+
+These rates are not anomaly precision or recall because independently labeled anomalous cycles are unavailable.
+
 ## 8. Verification of Business Understanding Success Criteria
 
 The evaluation was compared with the original objectives established in Stage 01 — Business Understanding.
 
 | Original Criterion | Evidence | Assessment |
 |---|---|---|
-| Lower official test MAE than Linear Regression | 10.974 vs. 25.603 | Met |
+| Lower official test MAE than Linear Regression | 10.974 vs. 25.465 | Met |
 | Report RMSE | Both models evaluated | Met |
 | Examine overestimation and underestimation | Critical engine error analysis completed | Met |
 | Select the model using validation MAE | Previously selected XGBoost reused without test-based selection | Consistent with Modeling workflow |
 | Higher Isolation Forest flag rate near failure on validation data | 99.35% vs. 21.64% | Supported by Modeling results |
+| Higher Isolation Forest flag rate near failure on official test data | 97.89% for RUL <= 30 vs. 7.63% for RUL > 30 | Supported by test results |
 
 ### 8.1 Isolation Forest Validation Results
 
@@ -273,6 +327,9 @@ All generated CSV files are stored in `outputs/`:
 | `sustained_anomaly_warnings.csv` | Cycle-level consecutive anomaly warnings |
 | `engine_warning_summary.csv` | Engine-level warning summary |
 | `selected_engine_sensor_comparison.csv` | Descriptive sensor feature comparisons |
+| `severe_late_predictions.csv` | Critical engine predictions with late and severe-late indicators (25 engines) |
+| `combined_rul_anomaly_assessment.csv` | Final-cycle warning status for 3 severely overestimated engines |
+| `test_anomaly_flag_rates_by_rul.csv` | Official test anomaly flag rates by reconstructed RUL groups |
 
 ### 11.3 Figures
 
@@ -323,7 +380,11 @@ The official test set is reserved for evaluation, not model tuning or selection.
 
 ## 13. Final Evaluation Conclusion
 
-The selected XGBoost model achieved a test MAE of **10.974 cycles** and improved MAE by **57.14%** relative to the Linear Regression baseline.
+The selected XGBoost model achieved a test MAE of **10.974 cycles** and improved MAE by **56.91%** relative to the clipped Linear Regression baseline.
+
+Among 25 critical engines, 3 had RUL overestimations greater than 10 cycles. Two of these three engines also had active sustained anomaly warnings at their final observed cycles.
+
+On the official test set, anomaly flags were present in 97.89% of observations with RUL <= 30, compared with 7.63% for observations with RUL > 30.
 
 It also achieved **90% Top-10 Recall** in the inspection prioritization analysis.
 
