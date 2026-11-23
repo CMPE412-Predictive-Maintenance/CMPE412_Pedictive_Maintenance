@@ -28,7 +28,7 @@ The project is organized into the following CRISP-DM stages:
 | [03 - Data Preparation](03_data_preparation/) | Prepares the data, calculates RUL, and creates model-ready datasets. |
 | [04 - Modeling](04_modeling/README.md) | Compares and selects RUL prediction models using validation data and develops an Isolation Forest anomaly detector. |
 | [05 - Evaluation](05_evaluation/README.md) | Evaluates the saved models on the official FD001 test set, analyzes prediction errors and anomaly warnings, and assesses deployment readiness. |
-| 06 - Deployment | Demonstrates how the predictions could support maintenance decisions. |
+| [06 - Deployment](06_deployment/README.md) | Notebook and Streamlit demo that loads the saved models, prepares new engine data with the same steps, shows predicted RUL and unusual sensor behaviour separately, and ranks engines for inspection. |
 
 
 ## Dataset
@@ -50,6 +50,19 @@ Isolation Forest was developed during Modeling to identify unusual sensor behavi
 The Evaluation stage achieved a 56.91% reduction in test MAE relative to the baseline and a Top-10 Recall of 90% for engine inspection prioritization. Among 25 critical engines, 3 had RUL overestimations greater than 10 cycles, and 2 of these 3 engines had active sustained anomaly warnings at their final observed cycles.
 
 The evaluation results support a controlled, simulation-based maintenance decision-support demonstration, while highlighting limitations related to late predictions and simulated operating conditions.
+
+## How to Run the Demo
+
+From the repository root (Python 3.11–3.13):
+
+```bash
+pip install -r 06_deployment/requirements.txt
+python -m pytest 06_deployment/tests -v          # checks the deployment against 04 and 05 results
+jupyter notebook 06_deployment/notebooks/06_deployment_demo.ipynb
+streamlit run 06_deployment/app.py
+```
+
+Details, including Windows commands, are in [06 - Deployment](06_deployment/README.md#how-to-run).
 
 ## Project Status
 
