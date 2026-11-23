@@ -1,0 +1,101 @@
+priority,unit,last_cycle,predicted_rul,baseline_rul,anomaly_score,anomaly_flag,consecutive_flags,sustained_warning,recent_flags,rul_status,anomaly_status,suggested_action,official_true_rul
+1,76,205,6.369,0.0,0.71,True,38,True,10,Critical,Sustained unusual pattern,Inspect first,10
+2,81,213,6.874,0.0,0.716,True,53,True,10,Critical,Sustained unusual pattern,Inspect first,8
+3,34,203,7.107,12.776,0.692,True,30,True,10,Critical,Sustained unusual pattern,Inspect first,7
+4,82,162,7.891,12.831,0.685,True,27,True,10,Critical,Sustained unusual pattern,Inspect first,9
+5,68,187,9.113,13.404,0.717,True,39,True,10,Critical,Sustained unusual pattern,Inspect first,8
+6,42,156,10.415,43.633,0.707,True,21,True,10,Critical,Sustained unusual pattern,Inspect first,10
+7,20,184,10.862,24.884,0.704,True,35,True,10,Critical,Sustained unusual pattern,Inspect first,16
+8,35,198,11.116,0.0,0.716,True,70,True,10,Critical,Sustained unusual pattern,Inspect first,11
+9,31,196,12.628,9.639,0.716,True,47,True,10,Critical,Sustained unusual pattern,Inspect first,8
+10,66,147,13.869,0.0,0.692,True,47,True,10,Critical,Sustained unusual pattern,Inspect first,14
+11,49,303,15.304,24.009,0.689,True,38,True,10,Critical,Sustained unusual pattern,Inspect first,21
+12,56,136,15.392,38.25,0.699,True,70,True,10,Critical,Sustained unusual pattern,Inspect first,15
+13,100,198,17.962,0.048,0.666,True,21,True,10,Critical,Sustained unusual pattern,Inspect first,20
+14,24,186,21.015,28.398,0.658,True,21,True,10,Critical,Sustained unusual pattern,Inspect first,20
+15,92,150,23.211,34.742,0.692,True,70,True,10,Critical,Sustained unusual pattern,Inspect first,20
+16,91,234,23.303,52.817,0.691,True,96,True,10,Critical,Sustained unusual pattern,Inspect first,38
+17,36,126,23.373,36.87,0.7,True,54,True,10,Critical,Sustained unusual pattern,Inspect first,19
+18,61,159,25.007,56.096,0.691,True,14,True,10,Critical,Sustained unusual pattern,Inspect first,21
+19,64,168,28.707,67.278,0.687,True,20,True,10,Critical,Sustained unusual pattern,Inspect first,28
+20,53,164,30.202,41.788,0.661,True,19,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),26
+21,52,189,33.25,47.684,0.587,True,11,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),29
+22,90,146,33.601,46.157,0.688,True,28,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),28
+23,77,162,34.432,63.679,0.64,True,14,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),34
+24,40,133,34.472,38.859,0.703,True,51,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),28
+25,41,123,35.312,93.799,0.659,True,9,True,9,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),18
+26,18,133,38.928,81.344,0.606,True,4,False,4,Plan inspection,Isolated unusual readings,Schedule inspection,28
+27,58,176,41.8,71.891,0.658,True,11,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),37
+28,3,126,43.093,85.441,0.638,True,11,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),69
+29,38,125,45.088,67.503,0.648,True,35,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),50
+30,46,146,47.454,65.441,0.66,True,23,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),47
+31,17,165,47.666,80.953,0.593,True,7,True,7,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),50
+32,37,121,48.233,82.238,0.642,True,7,True,7,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),21
+33,32,145,49.071,103.563,0.552,False,0,False,0,Plan inspection,Normal pattern,Schedule inspection,48
+34,62,232,51.112,84.453,0.587,True,5,True,6,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),54
+35,45,152,52.345,84.281,0.6,True,6,True,7,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),114
+36,93,244,57.038,61.589,0.696,True,63,True,10,Plan inspection,Sustained unusual pattern,Take a closer look (unusual sensor pattern),85
+37,72,131,60.516,97.344,0.492,False,0,False,0,Monitor,Normal pattern,Continue monitoring,50
+38,94,133,61.92,70.549,0.648,True,17,True,10,Monitor,Sustained unusual pattern,Take a closer look (unusual sensor pattern),55
+39,21,148,62.954,118.862,0.504,False,0,False,0,Monitor,Normal pattern,Continue monitoring,57
+40,84,172,64.716,78.979,0.611,True,12,True,10,Monitor,Sustained unusual pattern,Take a closer look (unusual sensor pattern),58
+41,98,121,68.752,98.827,0.526,False,0,False,0,Monitor,Normal pattern,Continue monitoring,59
+42,11,83,72.412,100.195,0.619,True,7,True,7,Monitor,Sustained unusual pattern,Take a closer look (unusual sensor pattern),97
+43,97,134,77.887,108.537,0.484,False,0,False,0,Monitor,Normal pattern,Continue monitoring,82
+44,4,106,78.344,99.382,0.515,False,0,False,0,Monitor,Normal pattern,Continue monitoring,82
+45,19,135,82.125,124.166,0.42,False,0,False,0,Monitor,Normal pattern,Continue monitoring,87
+46,79,101,82.24,119.123,0.42,False,0,False,0,Monitor,Normal pattern,Continue monitoring,63
+47,86,110,86.296,107.893,0.478,False,0,False,0,Monitor,Normal pattern,Continue monitoring,89
+48,43,172,87.46,80.102,0.559,True,1,False,1,Monitor,Isolated unusual readings,Continue monitoring,59
+49,8,166,87.521,95.16,0.512,False,0,False,0,Monitor,Normal pattern,Continue monitoring,95
+50,80,133,89.999,92.086,0.495,False,0,False,0,Monitor,Normal pattern,Continue monitoring,90
+51,50,74,91.303,126.094,0.442,False,0,False,0,Monitor,Normal pattern,Continue monitoring,79
+52,13,195,91.768,101.71,0.474,False,0,False,0,Monitor,Normal pattern,Continue monitoring,95
+53,10,192,91.86,117.779,0.455,False,0,False,0,Monitor,Normal pattern,Continue monitoring,96
+54,5,98,92.783,110.922,0.489,False,0,False,0,Monitor,Normal pattern,Continue monitoring,91
+55,29,171,94.582,122.754,0.476,False,0,False,0,Monitor,Normal pattern,Continue monitoring,90
+56,27,140,94.647,128.68,0.414,False,0,False,0,Monitor,Normal pattern,Continue monitoring,66
+57,16,113,95.928,139.189,0.424,False,0,False,0,Monitor,Normal pattern,Continue monitoring,84
+58,63,155,96.357,84.426,0.571,True,4,False,8,Monitor,Isolated unusual readings,Continue monitoring,72
+59,6,105,97.379,122.384,0.445,False,0,False,0,Monitor,Normal pattern,Continue monitoring,93
+60,60,147,98.448,117.732,0.459,False,0,False,0,Monitor,Normal pattern,Continue monitoring,100
+61,30,143,98.776,98.099,0.523,False,0,False,0,Monitor,Normal pattern,Continue monitoring,115
+62,95,89,98.787,145.337,0.425,False,0,False,0,Monitor,Normal pattern,Continue monitoring,128
+63,74,137,99.474,100.955,0.463,False,0,False,0,Monitor,Normal pattern,Continue monitoring,126
+64,51,144,99.76,119.781,0.44,False,0,False,0,Monitor,Normal pattern,Continue monitoring,114
+65,70,152,102.751,109.141,0.45,False,0,False,0,Monitor,Normal pattern,Continue monitoring,94
+66,48,78,104.01,120.405,0.422,False,0,False,0,Monitor,Normal pattern,Continue monitoring,92
+67,12,217,104.578,112.207,0.47,False,0,False,0,Monitor,Normal pattern,Continue monitoring,124
+68,57,160,106.062,107.281,0.506,False,0,False,0,Monitor,Normal pattern,Continue monitoring,103
+69,55,113,106.529,139.35,0.412,False,0,False,0,Monitor,Normal pattern,Continue monitoring,137
+70,28,158,107.122,109.88,0.464,False,0,False,0,Monitor,Normal pattern,Continue monitoring,97
+71,75,88,107.316,147.805,0.417,False,0,False,0,Monitor,Normal pattern,Continue monitoring,113
+72,59,94,109.323,162.09,0.433,False,0,False,0,Monitor,Normal pattern,Continue monitoring,114
+73,73,112,110.144,162.458,0.425,False,0,False,0,Monitor,Normal pattern,Continue monitoring,131
+74,83,73,110.235,130.839,0.408,False,0,False,0,Monitor,Normal pattern,Continue monitoring,137
+75,71,68,111.8,139.631,0.464,False,0,False,0,Monitor,Normal pattern,Continue monitoring,118
+76,7,160,112.769,129.694,0.479,False,0,False,0,Monitor,Normal pattern,Continue monitoring,91
+77,15,76,112.838,160.579,0.429,False,0,False,0,Monitor,Normal pattern,Continue monitoring,83
+78,87,56,113.188,153.346,0.422,False,0,False,0,Monitor,Normal pattern,Continue monitoring,116
+79,67,71,113.322,146.171,0.413,False,0,False,0,Monitor,Normal pattern,Continue monitoring,77
+80,89,177,113.606,112.637,0.441,False,0,False,0,Monitor,Normal pattern,Continue monitoring,136
+81,26,76,114.476,142.123,0.438,False,0,False,0,Monitor,Normal pattern,Continue monitoring,119
+82,96,97,114.78,164.991,0.444,False,0,False,0,Monitor,Normal pattern,Continue monitoring,137
+83,14,46,115.638,115.588,0.553,False,0,False,1,Monitor,Isolated unusual readings,Continue monitoring,107
+84,54,121,115.847,168.276,0.424,False,0,False,0,Monitor,Normal pattern,Continue monitoring,97
+85,25,48,117.62,138.225,0.428,False,0,False,0,Monitor,Normal pattern,Continue monitoring,145
+86,69,54,119.0,133.534,0.451,False,0,False,0,Monitor,Normal pattern,Continue monitoring,121
+87,44,54,119.046,118.847,0.427,False,0,False,0,Monitor,Normal pattern,Continue monitoring,109
+88,47,73,119.118,125.182,0.523,False,0,False,0,Monitor,Normal pattern,Continue monitoring,135
+89,99,97,119.722,160.505,0.444,False,0,False,0,Monitor,Normal pattern,Continue monitoring,117
+90,2,49,119.944,122.217,0.434,False,0,False,0,Monitor,Normal pattern,Continue monitoring,98
+91,1,31,121.914,159.284,0.43,False,0,False,0,Monitor,Normal pattern,Continue monitoring,112
+92,22,39,122.073,140.92,0.429,False,0,False,0,Monitor,Normal pattern,Continue monitoring,111
+93,65,71,123.109,180.201,0.465,False,0,False,0,Monitor,Normal pattern,Continue monitoring,128
+94,78,72,123.123,184.798,0.467,False,0,False,0,Monitor,Normal pattern,Continue monitoring,107
+95,23,130,123.325,154.382,0.421,False,0,False,0,Monitor,Normal pattern,Continue monitoring,113
+96,39,37,124.022,155.803,0.429,False,0,False,0,Monitor,Normal pattern,Continue monitoring,142
+97,9,55,124.358,112.88,0.438,False,0,False,0,Monitor,Normal pattern,Continue monitoring,111
+98,33,50,125.478,107.24,0.495,False,0,False,0,Monitor,Normal pattern,Continue monitoring,106
+99,85,34,125.57,118.51,0.46,False,0,False,0,Monitor,Normal pattern,Continue monitoring,118
+100,88,68,126.155,136.244,0.501,False,0,False,0,Monitor,Normal pattern,Continue monitoring,115
