@@ -26,9 +26,10 @@ The project is organized into the following CRISP-DM stages:
 | [01 - Business Understanding](01_business_understanding/README.md) | Defines the maintenance problem, project objectives, and success criteria. |
 | [02 - Data Understanding](02_data_understanding/) | Explores the dataset, checks data quality, and visualizes engine sensor behavior. |
 | [03 - Data Preparation](03_data_preparation/) | Prepares the data, calculates RUL, and creates model-ready datasets. |
-| 04 - Modeling | Trains machine learning models for RUL prediction and anomaly detection. |
-| 05 - Evaluation | Evaluates model performance and compares prediction results. |
+| [04 - Modeling](04_modeling/README.md) | Compares and selects RUL prediction models using validation data and develops an Isolation Forest anomaly detector. |
+| [05 - Evaluation](05_evaluation/README.md) | Evaluates the saved models on the official FD001 test set, analyzes prediction errors and anomaly warnings, and assesses deployment readiness. |
 | 06 - Deployment | Demonstrates how the predictions could support maintenance decisions. |
+
 
 ## Dataset
 
@@ -36,15 +37,19 @@ The project is organized into the following CRISP-DM stages:
 
 The dataset contains simulated turbofan engine data, including engine identifiers, operating cycles, operating settings, and sensor measurements.
 
-The data will be used for exploratory analysis, preprocessing, model training, and evaluation.
+The dataset has been used for exploratory analysis, preprocessing, model training, and evaluation.
 
 ## Machine Learning Approach
 
-For RUL prediction, we plan to compare a Linear Regression baseline with other regression models, including Random Forest and Gradient Boosting.
+For Remaining Useful Life (RUL) prediction, the project compared a Linear Regression baseline with Random Forest, HistGradientBoosting, and XGBoost models.
 
-Anomaly detection will be explored separately using Isolation Forest to identify unusual sensor patterns.
+XGBoost was selected during the Modeling stage based on validation MAE. On the official FD001 test set, the selected model achieved an MAE of 10.974 cycles and an RMSE of 15.258 cycles, compared with the non-negative Linear Regression baseline MAE of 25.465 cycles and RMSE of 31.909 cycles.
 
-Model performance will be evaluated using Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE).
+Isolation Forest was developed during Modeling to identify unusual sensor behavior. The Evaluation stage examined anomaly flags, sustained warnings, critical RUL prediction errors, and inspection prioritization.
+
+The Evaluation stage achieved a 56.91% reduction in test MAE relative to the baseline and a Top-10 Recall of 90% for engine inspection prioritization. Among 25 critical engines, 3 had RUL overestimations greater than 10 cycles, and 2 of these 3 engines had active sustained anomaly warnings at their final observed cycles.
+
+The evaluation results support a controlled, simulation-based maintenance decision-support demonstration, while highlighting limitations related to late predictions and simulated operating conditions.
 
 ## Project Status
 

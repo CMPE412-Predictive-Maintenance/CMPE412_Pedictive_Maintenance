@@ -1,1 +1,10 @@
 .DS_Store
+
+# PyCharm project settings
+.idea/
+
+# NASA test data (downloaded and verified by the notebook)
+05_evaluation/data/
+
+
+
