@@ -221,11 +221,17 @@ def validate_input(df: pd.DataFrame, models: Models) -> pd.DataFrame:
         raise ValueError(f"Missing or non-numeric values in: {bad}")
     if data.duplicated(["unit", "cycle"]).any():
         raise ValueError("Each (unit, cycle) pair must appear only once")
-    if (data["cycle"] < 1).any():
-        raise ValueError("Cycle numbers must start at 1")
     data["unit"] = data["unit"].astype(int)
     data["cycle"] = data["cycle"].astype(int)
-    return data.sort_values(["unit", "cycle"]).reset_index(drop=True)
+    data = data.sort_values(["unit", "cycle"]).reset_index(drop=True)
+    # The history features treat "the last 10 rows" as "the last 10 cycles" and
+    # use the engine's history from its first cycle, as in Data Preparation and
+    # Modeling. A record must therefore start at cycle 1 and have no gaps.
+    if not data.groupby("unit")["cycle"].min().eq(1).all():
+        raise ValueError("Each engine's record must start at cycle 1")
+    if not data.groupby("unit")["cycle"].diff().dropna().eq(1).all():
+        raise ValueError("Cycles must increase by one within each engine (no gaps)")
+    return data
 
 
 def add_history_features(df: pd.DataFrame, recipe: dict) -> pd.DataFrame:

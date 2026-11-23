@@ -54,7 +54,7 @@ python -m pytest 06_deployment/tests -v
 
 The first run downloads the official NASA archive (about 12 MB) into `06_deployment/data/` and checks each file against the SHA-256 hash recorded in 02 — Data Understanding. The folder is excluded from Git. If `05_evaluation/data/` already holds verified files, they are reused.
 
-Expected result: **17 passed**. Tests that need XGBoost or the NASA files are *skipped* (not failed) when those are missing, and the reason is printed with `-rs`.
+Expected result: **19 passed**. Tests that need XGBoost or the NASA files are *skipped* (not failed) when those are missing, and the reason is printed with `-rs`.
 
 ### 3. Open the notebook demo
 
@@ -83,7 +83,7 @@ The browser opens at `http://localhost:8501`. Tabs:
 
 The same steps run in the notebook, the app and the tests, because all three call `pm_deployment.py`.
 
-1. **Validate the record.** Required columns (below), numeric values, no missing values, one row per `(unit, cycle)`; sort by cycle.
+1. **Validate the record.** Required columns (below), numeric values, no missing values, one row per `(unit, cycle)`, each engine starting at cycle 1 with no gaps; sort by cycle. The history features count rows as cycles, so a gap would silently give wrong features.
 2. **History features.** For each of the 14 retained sensors, computed within each engine from the current and earlier cycles only:
    - `mean10_<sensor>`: mean of the last 10 cycles,
    - `slope20_<sensor>`: least-squares slope over the last 20 cycles.
@@ -139,7 +139,7 @@ Adding the anomaly signal finds 6 more critical engines, including engines 37 an
 | Slope formula | The fast slope equals `numpy.polyfit` on a 20-cycle window |
 | No future cycles | Features at cycle *t* are unchanged when later cycles are added |
 | Input order | Shuffled rows give identical results |
-| Bad input | Missing columns, missing values and duplicated cycles are rejected |
+| Bad input | Missing columns, missing values, duplicated cycles, cycle gaps and records not starting at cycle 1 are rejected |
 | Same results as 04 — Modeling | Baseline predictions, anomaly scores, flags and first sustained-warning cycles on the 20 validation engines; XGBoost predictions when XGBoost is installed |
 | Same results as 05 — Evaluation | XGBoost and baseline predictions for the 100 test engines, official labels, anomaly scores and sustained warnings for all 13,096 test cycles |
 | Demo labels and ranking | Label rules; ranking is ordered by predicted RUL |
