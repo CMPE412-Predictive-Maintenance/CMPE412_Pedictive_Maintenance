@@ -126,6 +126,8 @@ def test_input_order_does_not_matter(models, validation):
     (lambda d: d.drop(columns=["sensor_4"]), "Missing columns"),
     (lambda d: d.assign(sensor_2=np.nan), "Missing or non-numeric"),
     (lambda d: pd.concat([d, d.head(1)]), "only once"),
+    (lambda d: d[d["cycle"] != 15], "no gaps"),
+    (lambda d: d[d["cycle"] > 5], "start at cycle 1"),
 ])
 def test_bad_input_is_rejected(models, validation, change, message):
     engine = validation[validation["unit"] == 91].head(30)
