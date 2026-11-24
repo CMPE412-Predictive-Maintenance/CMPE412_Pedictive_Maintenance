@@ -128,6 +128,9 @@ def test_input_order_does_not_matter(models, validation):
     (lambda d: pd.concat([d, d.head(1)]), "only once"),
     (lambda d: d[d["cycle"] != 15], "no gaps"),
     (lambda d: d[d["cycle"] > 5], "start at cycle 1"),
+    (lambda d: d.assign(cycle=d["cycle"].where(d["cycle"] != 1, 1.9)), "'cycle' must contain whole numbers"),
+    (lambda d: d.assign(unit=d["unit"] + 0.5), "'unit' must contain whole numbers"),
+    (lambda d: d.assign(sensor_2=d["sensor_2"].where(d["cycle"] != 10, np.inf)), "Non-finite"),
 ])
 def test_bad_input_is_rejected(models, validation, change, message):
     engine = validation[validation["unit"] == 91].head(30)
