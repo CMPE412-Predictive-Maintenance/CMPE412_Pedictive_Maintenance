@@ -219,6 +219,14 @@ def validate_input(df: pd.DataFrame, models: Models) -> pd.DataFrame:
     if data[cols].isna().any().any():
         bad = data[cols].columns[data[cols].isna().any()].tolist()
         raise ValueError(f"Missing or non-numeric values in: {bad}")
+    finite = np.isfinite(data[cols].to_numpy(dtype=float))
+    if not finite.all():
+        bad = [c for c, ok in zip(cols, finite.all(axis=0)) if not ok]
+        raise ValueError(f"Non-finite values (such as infinity) in: {bad}")
+    # Check before converting: astype(int) would silently turn 1.9 into 1.
+    for c in ["unit", "cycle"]:
+        if not (data[c] % 1 == 0).all():
+            raise ValueError(f"'{c}' must contain whole numbers only")
     if data.duplicated(["unit", "cycle"]).any():
         raise ValueError("Each (unit, cycle) pair must appear only once")
     data["unit"] = data["unit"].astype(int)
