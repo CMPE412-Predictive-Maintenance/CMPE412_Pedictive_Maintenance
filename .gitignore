@@ -8,3 +8,9 @@
 
 
 
+
+# Deployment: NASA files downloaded by the demo, Python caches
+06_deployment/data/
+__pycache__/
+.pytest_cache/
+.venv/
